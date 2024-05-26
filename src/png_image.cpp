@@ -11,17 +11,7 @@ namespace shl {
         uint64_t asInteger;
     };
     const PngHeader PNG_HEADER = {.asBytes = {137, 80, 78, 71, 13, 10, 26, 10}};
-    uint8_t* readBinaryFile(const char* filename, size_t* pSize) {
-        std::ifstream file(filename, std::ios::binary | std::ios::ate);
-        if (!file.is_open()) {
-            std::cerr << "Die Datei konnte nicht geöffnet werden!" << std::endl;
-            return nullptr;
-        }
-
-        // Dateigröße ermitteln
-        *pSize = file.tellg();
-        file.seekg(0, std::ios::beg);
-    }
+    
     uint32_t Image::getPixelAt(uint32_t xpos, uint32_t ypos) {
         if (width <= xpos || height <= ypos) {
             logError("cannot get value for positions: {", xpos, ',', ypos, "} for dimensions: {", width, ',', height, '}');
@@ -49,9 +39,9 @@ namespace shl {
             }
         }
         
+        LOG_INFO("file:", filename, " is a png-file");
 
-
-
+        file.close();
         return true;
     }
 }
