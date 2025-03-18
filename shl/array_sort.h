@@ -5,6 +5,32 @@
 
 namespace shl {
 	template<typename T>
+	inline bool isSorted(T* arr, size_t size) {
+		for (size_t i = 1; i < size; ++i) {
+			if (arr[i] < arr[i - 1]) {
+				return false;
+			}
+		}
+		return true;
+	}
+	template<typename T>
+	inline bool isSorted(std::vector<T>& arr) {
+		return isSorted(arr.data(), arr.size());
+	}
+	
+	template<typename T>
+	inline void reverseArray(T* arr, size_t size) {
+		size_t half = size / 2;
+		for (size_t i = 0; i < half; ++i) {
+			std::swap(&arr[i], &arr[size - i]);
+		}
+	}
+	template<typename T>
+	inline void reverseArray(std::vector<T>& arr) {
+		reverseArray(arr.data(), arr.size());
+	}
+	
+	template<typename T>
 	inline void insertionSort(T* toSort, size_t size) {
 		for (size_t i = 1; i < size; ++i) {
 			size_t key = toSort[i];
